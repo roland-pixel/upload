@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($bukus as $buku)
+          @foreach ($buku as $buku)
             <tr class="hover:bg-gray-50">
               <td class="py-3 px-4 border-b">{{ $buku->judul }}</td>
               <td class="py-3 px-4 border-b">{{ $buku->pengarang }}</td>
@@ -49,7 +49,7 @@
             </tr>
           @endforeach
 
-          @if($bukus->isEmpty())
+          @if($buku->isEmpty())
             <tr>
               <td colspan="3" class="text-center py-4 text-gray-500">Belum ada data buku.</td>
             </tr>

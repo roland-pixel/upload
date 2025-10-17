@@ -27,34 +27,29 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($buku as $buku)
-            <tr class="hover:bg-gray-50">
-              <td class="py-3 px-4 border-b">{{ $buku->judul }}</td>
-              <td class="py-3 px-4 border-b">{{ $buku->pengarang }}</td>
-              <td class="py-3 px-4 border-b text-center">
-                <a href="{{ route('buku.edit', $buku->id) }}" 
-                   class="text-blue-600 hover:text-blue-800 font-medium">Edit</a>
-                <form action="{{ route('buku.destroy', $buku->id) }}" 
-                      method="POST" 
-                      class="inline">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" 
-                          class="text-red-600 hover:text-red-800 font-medium ml-2"
-                          onclick="return confirm('Yakin ingin menghapus buku ini?')">
-                    Hapus
-                  </button>
-                </form>
-              </td>
-            </tr>
-          @endforeach
+  @forelse ($bukus as $buku)
+    <tr class="hover:bg-gray-50">
+      <td class="py-3 px-4 border-b">{{ $buku->judul }}</td>
+      <td class="py-3 px-4 border-b">{{ $buku->pengarang }}</td>
+      <td class="py-3 px-4 border-b text-center">
+        <a href="{{ route('buku.edit', $buku->id) }}" class="text-blue-600 hover:text-blue-800 font-medium">Edit</a>
+        <form action="{{ route('buku.destroy', $buku->id) }}" method="POST" class="inline">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="text-red-600 hover:text-red-800 font-medium ml-2"
+                  onclick="return confirm('Yakin ingin menghapus buku ini?')">
+            Hapus
+          </button>
+        </form>
+      </td>
+    </tr>
+  @empty
+    <tr>
+      <td colspan="3" class="text-center py-4 text-gray-500">Belum ada data buku.</td>
+    </tr>
+  @endforelse
+</tbody>
 
-          @if($buku->isEmpty())
-            <tr>
-              <td colspan="3" class="text-center py-4 text-gray-500">Belum ada data buku.</td>
-            </tr>
-          @endif
-        </tbody>
       </table>
     </div>
   </div>

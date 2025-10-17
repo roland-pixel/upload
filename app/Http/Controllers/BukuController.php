@@ -9,7 +9,10 @@ class BukuController extends Controller
 {
     public function index()
     {
-        return view('buku.index');
+        // ambil semua data buku
+        $bukus = Buku::all();
+        // kirim ke view
+        return view('buku.index', compact('bukus'));
     }
 
     public function create()
@@ -24,10 +27,10 @@ class BukuController extends Controller
             'pengarang' => 'required',
         ]);
 
-        Buku::create($request->all());
+        Buku::create($request->only(['judul', 'pengarang']));
 
-        return redirect()->route('bukus.index')
-                            ->with('success', 'Buku created successfully.');
+        return redirect()->route('buku.index')
+                         ->with('success', 'Buku berhasil ditambahkan.');
     }
 
     public function edit(Buku $buku)
@@ -42,9 +45,17 @@ class BukuController extends Controller
             'pengarang' => 'required',
         ]);
 
-        $buku->update($request->all());
+        $buku->update($request->only(['judul', 'pengarang']));
 
-        return redirect()->route('bukus.index')
-                            ->with('success', 'Buku updated successfully.');
+        return redirect()->route('buku.index')
+                         ->with('success', 'Buku berhasil diperbarui.');
+    }
+
+    public function destroy(Buku $buku)
+    {
+        $buku->delete();
+
+        return redirect()->route('buku.index')
+                         ->with('success', 'Buku berhasil dihapus.');
     }
 }
